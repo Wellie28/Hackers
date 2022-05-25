@@ -1,0 +1,147 @@
+# Step 1: Import necessary modules. This is essential in order for stopwatch to work.
+from tkinter import *
+import time
+
+# Step 2: Create and modify the screen. Always remember this code in order to create the screen. They can also input
+# different numerical value in root.geometry and color in background under the root.configure.
+root=Tk()
+root.configure(background=('black'))
+root.title('Simple Stopwatch')
+root.geometry('1000x500')
+
+# Step 3: Create the essential variables. These variables are very important since it will be needed in defining a function.
+time_elapsed1=0
+time_elapsed2=0
+time_elapsed3=0
+time1=0
+time2=0
+i=0
+j=0
+
+# Step 4: Input and define the necessary functions. Functions is considered as the brain of this stopwatch.
+def create_label(text,_x,_y):
+    label=Label(root, text=text, fg='pink', bg='black', font=('Cambria Math', 15, 'bold'))
+    label.place(x=_x, y=_y, width=100, height=45)
+
+# This function is applied when the user already press the start button in the stopwatch. Observing the proper order of codes is a must.
+def start():
+    start_button.place_forget()
+    resume_button.place_forget()
+    stop_button.place(x=20, y=300, width=300, height=100)
+    global time_elapsed1, time_elapsed2, time_elapsed3, time1, self_job, time2
+    time2=int(time.time())
+    if time2 != time1:
+        time1=time2
+        if time_elapsed1<59:
+            time_elapsed1+=1
+            clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+        else:
+            time_elapsed1=0
+            time_elapsed2+=0
+            if time_elapsed2<59:
+                time_elapsed2+=1
+                clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+            else:
+                time_elapsed2=0
+                time_elapsed3+=1
+                if time_elapsed3>=24:
+                    time_elapsed1=0
+                    time_elapsed2=0
+                    time_elapsed3=0
+                else:
+                    time_elapsed3+=1
+                    clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+    self_job=root.after(1000,start)
+
+# This function allows the user to freeze the stopwatch.
+def stop():
+    global self_job
+    if self_job is not None:
+        root.after_cancel(self_job)
+        self_job=None
+    stop_button.place_forget()
+    resume_button.place(x=20, y=300, width=300, height=100)
+
+# This function is needed when the user wants to resume the stopped time. 
+# For programmers, they can copy the codes they coded from the start function and paste it under resume function.
+def resume():
+    start_button.place_forget()
+    resume_button.place_forget()
+    stop_button.place(x=20, y=300, width=300, height=100)
+    global time_elapsed1, time_elapsed2, time_elapsed3, time1, self_job, time2
+    time2=int(time.time())
+    if time2 != time1:
+        time1=time2
+        if time_elapsed1<59:
+            time_elapsed1+=1
+            clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+        else:
+            time_elapsed1=0
+            time_elapsed2+=1
+            if time_elapsed2<59:
+                time_elapsed2+=1
+                clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+            else:
+                time_elapsed2=0
+                time_elapsed3+=1
+                if time_elapsed3>=24:
+                    time_elapsed1=0
+                    time_elapsed2=0
+                    time_elapsed3=0
+                else:
+                    time_elapsed3+=1
+                    clock_frame.config(text=(str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)))
+    self_job=root.after(1000,start)
+
+# This function is needed in order for stopwatch to be resetted or back to zero.
+def clear():
+    global time_elapsed1, time_elapsed2, time_elapsed3, time1, self_job, time2, label, i, j
+    try:
+        stop()
+    except:
+        start()
+        stop()
+    clock_frame.config(text='00:00:00')
+    time_elapsed1=0
+    time_elapsed2=0
+    time_elapsed3=0
+    time1=0
+    time2=0
+    i=0
+    j=0
+    wig=root.winfo_children()
+    for b in wig:
+        b.place_forget()
+        resume_button.place_forget()
+    start_button.place(x=20, y=300, width=300, height=100)
+    lap_button.place(x=660, y=300, width=300, height=100)
+    reset_button.place(x=340, y=300, width=300, height=100)
+    clock_frame.place(x=200, y=50, width=600, height=200)
+
+# Defining this function allows the user to record the time in stopwatch without the means of stopping it.
+def lap():
+    global time_elapsed1, time_elapsed2, time_elapsed3, time1, self_job, time2, i, j
+    if i<9:
+        create_label((str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)),20+(110*i),400+(j*50))
+    else:
+        j+=1
+        i=0
+        create_label((str(time_elapsed3).zfill(2)+':'+str(time_elapsed2).zfill(2)+':'+str(time_elapsed1).zfill(2)),20+(110*i),400+(j*50))
+    i+=1
+
+# Step 5: Create the buttons and widgets for convenient access of stopwatch. The programmers can input different styles, color and backgorund of font. 
+# They can also modify the size of text as long as it is proportional to the size of the buttons.
+clock_frame=Label(text='00:00:00', bg='white', fg='dark blue', font=('Arial Rounded MT Bold', 100, 'bold'))
+start_button=Button(text='START', bg='light green', fg='black', command=start, font=('Agency FB', 60, 'bold'))
+stop_button=Button(text='STOP', bg='yellow', fg='black', command=stop, font=('Agency FB', 60, 'bold'))
+resume_button=Button(text='RESUME', bg='light green', fg='black', command=start, font=('Agency FB', 60, 'bold'))
+lap_button=Button(text='SPLIT', bg='orange', fg='black', command=lap, font=('Agency FB', 60, 'bold'))
+reset_button=Button(text='RESET', bg='red',fg='black', command=clear, font=('Agency FB', 60, 'bold'))
+
+# Step 6: Place the buttons and widgets in designated area of visibility.
+start_button.place(x=20, y=300, width=300, height=100)
+lap_button.place(x=660, y=300, width=300, height=100)
+reset_button.place(x=340, y=300, width=300, height=100)
+clock_frame.place(x=200, y=50, width=600, height=200)
+
+root.mainloop()
