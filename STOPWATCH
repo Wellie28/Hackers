@@ -8,3 +8,12 @@ root=Tk()
 root.configure(background=('black'))
 root.title('Simple Stopwatch')
 root.geometry('1000x500')
+
+# Step 3: Create the essential variables. These variables are very important since it will be needed in defining a function.
+time_elapsed1=0
+time_elapsed2=0
+time_elapsed3=0
+time1=0
+time2=0
+i=0
+j=0
