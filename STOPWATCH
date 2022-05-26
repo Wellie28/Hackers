@@ -137,3 +137,11 @@ stop_button=Button(text='STOP', bg='yellow', fg='black', command=stop, font=('Ag
 resume_button=Button(text='RESUME', bg='light green', fg='black', command=start, font=('Agency FB', 60, 'bold'))
 lap_button=Button(text='SPLIT', bg='orange', fg='black', command=lap, font=('Agency FB', 60, 'bold'))
 reset_button=Button(text='RESET', bg='red',fg='black', command=clear, font=('Agency FB', 60, 'bold'))
+
+# Step 6: Place the buttons and widgets in designated area of visibility.
+start_button.place(x=20, y=300, width=300, height=100)
+lap_button.place(x=660, y=300, width=300, height=100)
+reset_button.place(x=340, y=300, width=300, height=100)
+clock_frame.place(x=200, y=50, width=600, height=200)
+
+root.mainloop()
