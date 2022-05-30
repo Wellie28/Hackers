@@ -7,7 +7,7 @@ import time
 root=Tk()
 root.configure(background=('black'))
 root.title('Simple Stopwatch')
-root.geometry('980x480
+root.geometry('980x480')
 
 # Step 3: Create the essential variables. These variables are very important since it will be needed in defining a function.
 time_elapsed1=0
